@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
 
 var server = https.createServer(ssloptions,app).listen(app.get('httpsport'), function(){
     console.log('Express HTTPS server listening on port ' + app.get('httpsport'));
-    mongoose.connect(mongodbUri, mongOptions);
+    // mongoose.connect(mongodbUri, mongOptions);
 });
 
 module.exports = app;
