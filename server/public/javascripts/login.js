@@ -1,6 +1,10 @@
 $(function(){
     $('#login').click(function () {
-        $(this).text("クリックされました");
+
+        var email = $('.login-container [name=email]').val();
+        var password = $('.login-container [name=password]').val();
+	
+	alert(email+' : '+password);
     });
 
     $('#signup').click(function () {
