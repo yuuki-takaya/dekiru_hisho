@@ -10,4 +10,9 @@ router.get('/main', function(req, res, next) {
   res.render('main', { title: 'Express' });
 });
 
+router.post('/login', function(req, res, next) {
+  console.log(req.body)
+  res.render('main', { title: 'Express' });
+});
+
 module.exports = router;
