@@ -5,7 +5,7 @@ $(function(){
 
         $.ajax({
             type: "POST",
-            url: "https://ec2-13-112-109-240.ap-northeast-1.compute.amazonaws.com:3000/login",
+            url: "https://ec2-13-112-203-243.ap-northeast-1.compute.amazonaws.com:3000/login",
             data: {
                 "email": email,
                 "password": password
