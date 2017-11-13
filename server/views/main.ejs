@@ -3,44 +3,28 @@
 
 <head>
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ <link rel="stylesheet" href="/stylesheets/main.css" />
  
-
- <style>
-  ul > li:first-child {
-   color: black;
-   font-size: 25px;
-  }
-  ul > li:nth-child(2n) {
-   color: blue;
-  }
-  ul > li:nth-child(2n):before {
-   content:"ユーザー名："
-  }
- </style>
 </head>
 
 <body>
- <div>
-  <!-- 投稿者 -->
-  <div>
-   <p>ユーザ名</p>
-   <textarea name="" id="jsi-name" cols="10" rows="1"></textarea>
-  </div>
-
-  <!-- メッセージを打ち込む部分 -->
-  <div>
-   <p>内容</p>
-   <textarea name="" id="jsi-msg" cols="30" rows="4"></textarea>
-  </div>
- </div>
-
- <!-- メッセージを送る部分 -->
- <button name="button" id="jsi-button">send message!</button>
-
- <!-- チャット内容が動的に生成される部分 -->
- <ul id="jsi-board" style="list-style:none;">
-  <li>〜チャット内容〜</li>
- </ul>
+    <div id="global-wrapper">
+        <header id="global-header">
+          <h1 class="ttl">Message</h1>
+        </header>
+      
+        <div id="global-stage">
+          <div id="global-stage-inner" class="inner">
+          </div>
+        </div>
+      
+        <footer id="global-footer">
+          <form id="global-footer-form" class="form">
+            <input id="global-footer-form-txt" class="txt" type="text"></input>
+          <input id="global-footer-form-btn" class="btn submit" type="submit" value="送信" />
+          </form>
+        </footer>
+      </div>
 </body>
 
 </html>
