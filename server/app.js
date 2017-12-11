@@ -13,6 +13,7 @@ const app = express();
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const chat = require('./routes/chat');
 
 const ssloptions = {
   key: fs.readFileSync('./serverKey/localhost.key', 'utf8'),
@@ -45,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/chat',chat);
 
 
 // catch 404 and forward to error handler
