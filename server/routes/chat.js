@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     console.log("in chat");
-    res.send('respond with a resource');
+    res.render('main', { title: 'Express' });
 });
 
 

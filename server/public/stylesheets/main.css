@@ -128,7 +128,24 @@ body {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
+#chat-content {
+  position: absolute;
+  top: 0;
+  bottom: 44000px
+  left: 0;
+  right: 0;
+  background: #e4eef7;
 
+}
+#chat-content2 {
+  position: absolute;
+  top: 0;
+  bottom: 44000px;
+  left: 0;
+  right: 0;
+  background: #e4eef7;
+
+}
 #global-footer {
   position: absolute;
   bottom: 0;
