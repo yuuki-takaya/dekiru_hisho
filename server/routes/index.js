@@ -7,36 +7,31 @@ var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var request = require('request');
 
+const User = require('../models/user');
+
+
+var testUserId = 'testId';
+var testUserName = 'testName';
+var testPass = 'testPass';
+
+
 
 
 
 router.get('/token',function(req,res,next){
   console.log(req.query.code);
   
-  var options = {
-    url: 'https://localhost:3000/newtoken?code='+req.query.code,
-    json: true
-  };
 
-  request.get(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      //getリクエスト成功時の処理
-    } else {
-      console.log('error: '+ response.statusCode);
-    }
-  });
+  res.redirect('https://172.20.11.177:3000');
 });
 
-router.get('/newtoken',function(req,res,next){
-  getNewToken(oauth2Client,req.query.code,listEvents);
-
-});
 
 
 /* GET home page. */
 router.get('/auth', function(req, res, next) {
   // If modifying these scopes, delete your previously saved credentials
   // at ~/.credentials/calendar-nodejs-quickstart.json
+  
 
   var SCOPES = ['https://www.googleapis.com/auth/calendar'];
   var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE) + '/.credentials/';
@@ -53,14 +48,14 @@ router.get('/auth', function(req, res, next) {
     }
     // Authorize a client with the loaded credentials, then call the
     // Google Calendar API.
-    authorize(JSON.parse(content), listEvents);
+    authorize(JSON.parse(content));
   });
 
-  function authorize(credentials, callback) {
+  function authorize(credentials) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
     // var redirectUrl = credentials.installed.redirect_uris[0];
-    var redirectUrl = 'https://localhost:3000/token';
+    var redirectUrl = 'https://172.20.11.177:3000/token';
     var auth = new googleAuth();
     var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
@@ -74,25 +69,22 @@ router.get('/auth', function(req, res, next) {
 
         //ここで'/chat'にoauth2Clientをpostしたい
         
-        var options = {
-          uri: "https://localhost:3000/",
-          headers: {
-            "Content-type": "application/json",
-          },
-          json: {
-            "auth": oauth2Client
+        User.find({"userid":testUserId},function(err,result){
+          if(result.length == 0){
+            var user = new User();
+            
+            user.userid = testUserId;
+            user.username  = testUserName;
+            user.password = testPass;
+            user.oauth = oauth2Client;
+            
+            user.save(function(err){
+              if (err) console.log(err);
+            });
           }
-        };
-        request.post(options, function(error, response, body){
-          if(error){
-            console.log("post失敗");
-          }
-        });
-
-
-
-        
-        callback(oauth2Client);
+        })
+        // callback(oauth2Client);
+        res.redirect('https://172.20.11.177:3000/chat');
 
       }
     });
@@ -144,6 +136,7 @@ router.get('/auth', function(req, res, next) {
   function listEvents(auth) {
     var calendar = google.calendar('v3');
     console.log("authの中身だよ〜\n");
+    
     console.log(auth);
     calendar.events.list({
       auth: auth,
@@ -183,7 +176,6 @@ router.get('/auth', function(req, res, next) {
       callback(oauth2Client);
     });
   }
-
 });
 
 
