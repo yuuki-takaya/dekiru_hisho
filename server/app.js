@@ -21,7 +21,7 @@ const ssloptions = {
 };
 
 mongoose.Promise = global.Promise;
-const mongodbUri = 'mongodb://172.20.11.177/dekiru';
+const mongodbUri = 'mongodb://172.20.11.235/dekiru';
 const mongOptions = {
     useMongoClient: true,
     socketTimeoutMS: 0,

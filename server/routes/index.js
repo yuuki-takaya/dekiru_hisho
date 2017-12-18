@@ -22,7 +22,7 @@ router.get('/token',function(req,res,next){
   console.log(req.query.code);
   
 
-  res.redirect('https://172.20.11.177:3000');
+  res.redirect('https://172.20.11.235:3000');
 });
 
 
@@ -55,7 +55,7 @@ router.get('/auth', function(req, res, next) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
     // var redirectUrl = credentials.installed.redirect_uris[0];
-    var redirectUrl = 'https://172.20.11.177:3000/token';
+    var redirectUrl = 'https://172.20.11.235:3000/token';
     var auth = new googleAuth();
     var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
@@ -84,7 +84,7 @@ router.get('/auth', function(req, res, next) {
           }
         })
         // callback(oauth2Client);
-        res.redirect('https://172.20.11.177:3000/chat');
+        res.redirect('https://172.20.11.235:3000/chat');
 
       }
     });

@@ -10,8 +10,6 @@ var auth = new googleAuth();
 var oauth2Client = new auth.OAuth2(null,null, null);
 
 
-
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     console.log("in chat");
@@ -36,13 +34,14 @@ router.get('/', function(req, res, next) {
         
         console.log(oauth2Client);
         listEvents(oauth2Client);
-        res.redirect("https://172.20.11.177:3000/chat/room");
+        insertEvents(oauth2Client);
+        res.redirect("https://172.20.11.235:3000/chat/room");
     });
 
     function listEvents(auth) {
         var calendar = google.calendar('v3');
-        console.log("authの中身だよ〜\n");
-        console.log(auth);
+        // console.log("authの中身だよ〜\n");
+        // console.log(auth);
         calendar.events.list({
           auth: auth,
           calendarId: 'primary',
@@ -56,7 +55,7 @@ router.get('/', function(req, res, next) {
             return;
           }
           var events = response.items;
-          console.log(response.items);
+        //   console.log(response.items);
           if (events.length == 0) {
             console.log('No upcoming events found.');
           } else {
@@ -69,6 +68,40 @@ router.get('/', function(req, res, next) {
           }
         //   res.send(events[1]);
         });
+      }
+
+
+
+      function insertEvents(auth) {
+        var calendar = google.calendar('v3');
+        
+        var event = {
+            'summary': 'Google I/O 2015',
+            'location': '同志社大学京田辺キャンパス',
+            'description': 'テスト用',
+            'start': {
+              'dateTime': '2017-12-31T09:00:00-07:00',
+              'timeZone': 'Asia/Tokyo',
+            },
+            'end': {
+              'dateTime': '2018-01-01T17:00:00-07:00',
+              'timeZone': 'Asia/Tokyo',
+            }
+          };
+
+
+
+        calendar.events.insert({
+            auth: auth,
+            calendarId: 'primary',
+            resource: event,
+          }, function(err, event) {
+            if (err) {
+              console.log('There was an error contacting the Calendar service: ' + err);
+              return;
+            }
+            console.log('Event created: %s', event.htmlLink);
+          });
       }
 });
 
